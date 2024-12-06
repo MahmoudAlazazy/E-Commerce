@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1 id="category-title">Category</h1>
+  <div id="category-details"></div>
+
+  <script>
+    const categoryData = {
+      SmartPhone: {
+        name: "Smart Phone",
+        products: [
+          { name: "iPhone 13", image: "images/phone1.png", specifications: "6.1-inch display, A15 Bionic chip", price: "$799" },
+          { name: "Samsung Galaxy S22", image: "images/iphone 13 pro.png", specifications: "6.2-inch display, Snapdragon 8 Gen 1", price: "$849" },
+          { name: "Google Pixel 7", image: "images/pixel7.jpg", specifications: "6.3-inch display, Tensor G2 chip", price: "$599" },
+          { name: "OnePlus 10 Pro", image: "images/oneplus10pro.jpg", specifications: "6.7-inch display, Snapdragon 8 Gen 1", price: "$899" },
+          { name: "Xiaomi Mi 12", image: "images/xiaomi12.jpg", specifications: "6.28-inch display, Snapdragon 8 Gen 1", price: "$749" }
+        ]
+      },
+      SmartWatch: {
+        name: "Smart Watch",
+        products: [
+          { name: "Apple Watch Series 7", image: "images/w1.png", specifications: "Always-on Retina display", price: "$399" },
+          { name: "Samsung Galaxy Watch 4", image: "images/galaxywatch4.jpg", specifications: "Wear OS, health tracking", price: "$249" },
+          { name: "Fitbit Versa 3", image: "images/fitbitversa3.jpg", specifications: "Built-in GPS, heart rate monitor", price: "$229" },
+          { name: "Garmin Venu 2", image: "images/garminvenu2.jpg", specifications: "AMOLED display, long battery life", price: "$399" },
+          { name: "Huawei Watch GT 3", image: "images/huaweiwatchgt3.jpg", specifications: "Two-week battery life", price: "$299" }
+        ]
+      },
+      Hardware: {
+        name: "Hardware Accessories",
+        products: [
+          { name: "Logitech Mouse", image: "images/mouse.jpg", specifications: "Wireless, ergonomic design", price: "$29" },
+          { name: "Mechanical Keyboard", image: "images/keyboard.jpg", specifications: "RGB lighting, mechanical keys", price: "$79" },
+          { name: "Gaming Headset", image: "images/headset.jpg", specifications: "7.1 Surround Sound", price: "$99" },
+          { name: "Webcam", image: "images/webcam.jpg", specifications: "1080p video quality", price: "$59" },
+          { name: "External HDD", image: "images/hdd.jpg", specifications: "1TB capacity", price: "$59" }
+        ]
+      },
+      AppSoftware: {
+        name: "Application Software",
+        products: [
+          { name: "Microsoft Office", image: "images/office.jpg", specifications: "Word, Excel, PowerPoint", price: "$149" },
+          { name: "Adobe Photoshop", image: "images/photoshop.jpg", specifications: "Photo editing software", price: "$20/month" },
+          { name: "Slack", image: "images/slack.jpg", specifications: "Team communication tool", price: "$6.67/user" },
+          { name: "Zoom", image: "images/zoom.jpg", specifications: "Video conferencing app", price: "$14.99/month" },
+          { name: "Notion", image: "images/notion.jpg", specifications: "Project management tool", price: "$8/user" }
+        ]
+      },
+      SystemSoftware: {
+        name: "System Software",
+        products: [
+          { name: "Windows 11", image: "images/windows11.jpg", specifications: "Latest OS by Microsoft", price: "$139" },
+          { name: "macOS Ventura", image: "images/macos.jpg", specifications: "Latest macOS version", price: "Free" },
+          { name: "Ubuntu", image: "images/ubuntu.jpg", specifications: "Open-source OS", price: "Free" },
+          { name: "Red Hat Enterprise Linux", image: "images/rhel.jpg", specifications: "Enterprise Linux OS", price: "$349/year" },
+          { name: "VMware", image: "images/vmware.jpg", specifications: "Virtualization software", price: "$250" }
+        ]
+      },
+      PersonalComputers: {
+        name: "Personal Computers",
+        products: [
+          { name: "MacBook Pro", image: "images/c1.png", specifications: "M1 Pro chip, 14-inch", price: "$1999" },
+          { name: "Dell XPS 13", image: "images/c2.png", specifications: "Intel i7, 13.4-inch display", price: "$1399" },
+          { name: "HP Spectre x360", image: "images/c3.png", specifications: "Convertible laptop", price: "$1299" },
+          { name: "Lenovo ThinkPad", image: "images/thinkpad.jpg", specifications: "Business laptop", price: "$1199" },
+          { name: "Asus ROG Zephyrus", image: "images/asusrog.jpg", specifications: "Gaming laptop", price: "$1799" }
+        ]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedCategory = params.get("category");
+    const categoryTitle = document.getElementById("category-title");
+    const categoryDetails = document.getElementById("category-details");
+
+    if (categoryData[selectedCategory]) {
+      const { name, products } = categoryData[selectedCategory];
+      categoryTitle.textContent = name;
+      const productsHTML = products
+        .map(
+          (product) => `
+          <div class="product-card">
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <h3>${product.name}</h3>
+            <p><strong>Specifications:</strong> ${product.specifications}</p>
+            <p><strong>Price:</strong> ${product.price}</p>
+          </div>
+        `
+        )
+        .join("");
+      categoryDetails.innerHTML = `<div class="product-grid">${productsHTML}</div>`;
+    } else {
+      categoryTitle.textContent = "Category Not Found";
+      categoryDetails.innerHTML = "<p>Please select a valid category.</p>";
+    }
+  </script>
+</body>
+</html>
